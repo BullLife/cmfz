@@ -7,7 +7,7 @@
 
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:applicationConetxt.xml</param-value>
+    <param-value>classpath:applicationContext.xml</param-value>
   </context-param>
 
   <filter>
@@ -32,7 +32,7 @@
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:applicationCotext-mvc.xml</param-value>
+      <param-value>classpath:applicationContext-mvc.xml</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>

@@ -1,6 +1,7 @@
 package com.csh.cmfz.dao;
 
 import com.csh.cmfz.entity.Manager;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 管理员
@@ -13,7 +14,7 @@ public interface ManagerDao {
      * @Author 程少华
      * @param mgr 向数据库中插入的管理员信息
      */
-    public Integer insertManager(Manager mgr);
+    public Integer insertManager(@Param("mgr") Manager mgr);
     /**
      * 根据id查找管理员用户
      * @Author 程少华

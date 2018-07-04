@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.csh.cmfz.dao.ManagerDao">
+
+	<resultMap id="ManagerResult" type="Manager">
+		<id property="mgrId" column="mgr_id"/>
+		<result property="mgrName" column="mgr_name"/>
+		<result property="mgrPwd" column="mgr_pwd"/>
+		<result property="mgrSalt" column="mgr_salt"/>
+		<result property="mgrStatus" column="mgr_status"/>
+	</resultMap>
+
+	<insert id="insertManager">
+		insert into t_manager values(#{mgr.mgrId},#{mgr.mgrName},#{mgr.mgrPwd},#{mgr.mgrSalt},#{mgr.mgrStatus})
+	</insert>
+
+	<select id="selectManagerById" resultMap="ManagerResult">
+		select * from t_manager where mgr_id = #{id}
+	</select>
+
+</mapper>
