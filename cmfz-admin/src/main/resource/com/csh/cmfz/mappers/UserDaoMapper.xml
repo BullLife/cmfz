@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.csh.ssm.dao.UserDao">
+
+	<resultMap type="User" id="UserResultMap">
+		<id property="userId" column="user_id"/>
+		<result property="email" column="email"/>
+		<result property="nickName" column="nick_name"/>
+		<result property="password" column="password"/>
+		<result property="regTime" column="reg_time"/>
+		<result property="salt" column="salt"/>
+	</resultMap>
+	
+
+</mapper>
