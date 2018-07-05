@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpCookie;
 import java.net.URLDecoder;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Description TODO
@@ -32,6 +34,7 @@ public class ManagerController {
 
     @RequestMapping(value = "toLogin")
     public String toLogin(HttpServletRequest request, Model model){
+        //new AtomicInteger();
         Cookie[] cookies = request.getCookies();
         String mgrId="";
         if(cookies != null){
@@ -74,9 +77,8 @@ public class ManagerController {
                 response.addCookie(c1);
             }
         }
-        return "index";
+        return "main";
     }
-
 
     @RequestMapping(value="/createVcode")
     public String createVcode(HttpServletResponse response, Model model,HttpSession session) throws IOException {
@@ -87,5 +89,11 @@ public class ManagerController {
         System.out.println(vcode);
         cvc.write(response.getOutputStream());
         return null;
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("manager");
+        return "login";
     }
 }

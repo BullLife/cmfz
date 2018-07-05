@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.csh.cmfz.dao.PictureDao">
+
+	<resultMap id="PictureResult" type="Picture">
+		<id property="pictureId" column="picture_id"/>
+		<result property="picturePath" column="picture_path"/>
+		<result property="pictureDate" column="picture_date"/>
+		<result property="pictureDescription" column="picture_description"/>
+		<result property="pictureStatus" column="picture_status"/>
+		<result property="pictureName" column="picture_name"/>
+	</resultMap>
+
+	<insert id="insertPicture">
+		insert into t_picture values(
+		#{pic.pictureId},#{pic.picturePath}, #{pic.pictureDate},#{pic.pictureDescription},#{pic.pictureStatus},
+		#{pic.pictureName}
+		)
+	</insert>
+
+	<delete id="deletePictureById">
+		delete from t_picture picture_id = #{id}
+	</delete>
+
+	<update id="updatePicture">
+		update t_picture
+		<trim suffixOverrides=",">
+			<if test="pic.picturePath != null">
+				picture_path = #{pic.picturePath} ,
+			</if>
+			<if test="pic.pictureDate != null">
+				picture_date = #{pic.pictureDate},
+			</if>
+			<if test="pic.pictureDescription != null">
+				picture_description = #{pic.pictureDescription},
+			</if>
+			<if test="pic.pictureStatus != null">
+				picture_status = #{pic.pictureStatus},
+			</if>
+			<if test="pic.pictureName != null">
+				picture_name = #{pic.pictureName},
+			</if>
+		</trim>
+	</update>
+
+	<select id="selectCount" resultType="java.lang.Integer">
+		select count(*) from t_picture
+	</select>
+
+	<select id="selectAllPictureByPage" resultMap="PictureResult">
+		SELECT * FROM t_picture LIMIT #{begin},#{end}
+	</select>
+
+	<select id="selectPictureById" resultMap="PictureResult">
+		SELECT * FROM t_picture WHERE picture_id = #{id}
+	</select>
+</mapper>

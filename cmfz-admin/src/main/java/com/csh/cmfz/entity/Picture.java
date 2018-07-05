@@ -12,8 +12,11 @@ public class Picture implements Serializable {
   private Date pictureDate;
   private String pictureDescription;
   private String pictureStatus;
+  private String pictureName;
+  private String update;
 
   public Picture() {
+    this.update = "修改";
   }
 
   @Override
@@ -24,7 +27,16 @@ public class Picture implements Serializable {
             ", pictureDate=" + pictureDate +
             ", pictureDescription='" + pictureDescription + '\'' +
             ", pictureStatus='" + pictureStatus + '\'' +
+            ", pictureName='" + pictureName + '\'' +
             '}';
+  }
+
+  public String getPictureName() {
+    return pictureName;
+  }
+
+  public void setPictureName(String pictureName) {
+    this.pictureName = pictureName;
   }
 
   public String getPictureId() {

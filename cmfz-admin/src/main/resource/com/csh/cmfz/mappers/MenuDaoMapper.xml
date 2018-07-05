@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.csh.cmfz.dao.MenuDao">
+
+	<resultMap id="MenuResult" type="Menu">
+		<id property="menuId" column="menu_id"/>
+		<result property="menuName" column="menu_name"/>
+		<result property="menuCode" column="menu_code"/>
+		<result property="menuIcon" column="menu_icon"/>
+		<result property="menuUrl" column="menu_url"/>
+		<result property="menuLevel" column="menu_level"/>
+		<result property="menuParentId" column="menu_parent_id"/>
+		<collection property="menus" ofType="Menu">
+			<id property="menuId" column="id"/>
+			<result property="menuName" column="name"/>
+			<result property="menuCode" column="code"/>
+			<result property="menuIcon" column="icon"/>
+			<result property="menuUrl" column="url"/>
+			<result property="menuLevel" column="level"/>
+			<result property="menuParentId" column="parent_id"/>
+		</collection>
+	</resultMap>
+
+	<select id="selectAllMenus" resultMap="MenuResult">
+		select m1.*,
+			m2.menu_id AS id,m2.menu_name as name,m2.menu_code as code,m2.menu_icon as icon,
+			m2.menu_url as url,m2.menu_level as level,m2.menu_parent_id as parent_id
+		from t_menu m1,t_menu m2 WHERE m1.menu_id = m2.menu_parent_id
+	</select>
+
+</mapper>
