@@ -40,7 +40,7 @@
 							var length = result[key].menus.length;
 							for(var i = 0; i<length ; i++){
                                 $(this).append("<a class='easyui-linkbutton' data-options=\"iconCls:'"+temp[i].menuIcon+"'\" " +
-									"style='text-align: center;padding:10px;'  onclick=\"addTab('"+temp[i].menuName+"','"+temp[i].menuUrl+"')\">"+temp[i].menuName+"</a></br>");
+									"style='align-content: center;padding:10px;'  onclick=\"addTab('"+temp[i].menuName+"','"+temp[i].menuUrl+"')\">"+temp[i].menuName+"</a></br>");
                             }
                         },
                         selected: false,

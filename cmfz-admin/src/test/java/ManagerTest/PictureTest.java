@@ -20,7 +20,7 @@ public class PictureTest {
         ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         PictureService pictureServiceImpl = (PictureService) classPathXmlApplicationContext.getBean("pictureServiceImpl");
 
-        List<Picture> pictures = pictureServiceImpl.queryAllPicturesByPage(1, 5);
+        List<Picture> pictures = pictureServiceImpl.queryAllPicturesByPage(1, 15);
         for (Picture picture : pictures) {
             System.out.println(picture);
         }

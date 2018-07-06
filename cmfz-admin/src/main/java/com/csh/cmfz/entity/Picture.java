@@ -1,5 +1,8 @@
 package com.csh.cmfz.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,14 +12,14 @@ import java.util.Date;
 public class Picture implements Serializable {
   private String pictureId;
   private String picturePath;
+  @JSONField(format = "yyyy-MM-dd : hh:mm:ss")
+  @DateTimeFormat(style = "yyyy-MM-dd : hh:mm:ss")
   private Date pictureDate;
   private String pictureDescription;
   private String pictureStatus;
   private String pictureName;
-  private String update;
 
   public Picture() {
-    this.update = "修改";
   }
 
   @Override

@@ -19,11 +19,11 @@
 	</insert>
 
 	<delete id="deletePictureById">
-		delete from t_picture picture_id = #{id}
+		delete from t_picture where picture_id = #{id}
 	</delete>
 
 	<update id="updatePicture">
-		update t_picture
+		update t_picture set
 		<trim suffixOverrides=",">
 			<if test="pic.picturePath != null">
 				picture_path = #{pic.picturePath} ,
@@ -41,6 +41,7 @@
 				picture_name = #{pic.pictureName},
 			</if>
 		</trim>
+		where picture_id = #{pic.pictureId}
 	</update>
 
 	<select id="selectCount" resultType="java.lang.Integer">
