@@ -35,7 +35,6 @@
 				 '</tr></table>';
 				 },
             });
-            /*$('#t1').datagrid({});*/
             $("#update").linkbutton({
                 iconCls : "icon-edit",
                 text : "修改",

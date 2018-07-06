@@ -10,6 +10,7 @@ public class Guru implements Serializable {
   private String guruName;
   private String guruPic;
   private String guruSummary; //简介
+  private String guruPicName; //头像照片文件名
 
   public Guru() {
   }
@@ -21,7 +22,16 @@ public class Guru implements Serializable {
             ", guruName='" + guruName + '\'' +
             ", guruPic='" + guruPic + '\'' +
             ", guruSummary='" + guruSummary + '\'' +
+            ", guruPicName='" + guruPicName + '\'' +
             '}';
+  }
+
+  public String getGuruPicName() {
+    return guruPicName;
+  }
+
+  public void setGuruPicName(String guruPicName) {
+    this.guruPicName = guruPicName;
   }
 
   public String getGuruId() {

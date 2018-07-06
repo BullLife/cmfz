@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.csh.cmfz.dao.GuruDao">
+
+	<resultMap id="GuruResult" type="Guru">
+		<id property="guruId" column="guru_id"/>
+		<result property="guruName" column="guru_name"/>
+		<result property="guruPic" column="guru_pic"/>
+		<result property="guruSummary" column="guru_summary"/>
+		<result property="guruPicName" column="guru_pic_name"/>
+	</resultMap>
+
+	<insert id="insertGuru">
+		insert into t_guru values(
+		#{guru.guruId},#{guru.guruName},#{guru.guruPic},#{guru.guruSummary},#{guru.guruPicName}
+		)
+	</insert>
+
+	<update id="updateGuru">
+		update t_guru set
+		<trim suffixOverrides=",">
+			<if test="guru.guruName != null">
+				guru_name = #{guru.guruName} ,
+			</if>
+			<if test="guru.guruPic != null">
+				guru_pic = #{guru.guruPic},
+			</if>
+			<if test="guru.guruSummary != null">
+				guru_summary = #{guru.guruSummary},
+			</if>
+			<if test="guru.guruPicName != null">
+				guru_pic_name = #{guru.guruPicName},
+			</if>
+		</trim>
+		where guru_id = #{guru.guruId}
+	</update>
+
+	<select id="selectCount" resultType="java.lang.Integer">
+		select count(*) from t_guru
+	</select>
+
+	<select id="selectGurusOnPage" resultMap="GuruResult">
+		SELECT * FROM t_guru LIMIT #{begin},#{end}
+	</select>
+
+	<select id="selectGuruById" resultMap="GuruResult">
+		SELECT * FROM t_guru WHERE guru_id = #{id}
+	</select>
+
+	<select id="selectCountByTrim" resultType="java.lang.Integer">
+		select count(*) from t_guru where
+		<trim suffixOverrides="and">
+			<if test="guru.guruId != null">
+				guru_id like #{guru.guruId} and
+			</if>
+			<if test="guru.guruName != null">
+				guru_name like #{guru.guruName} and
+			</if>
+			<if test="guru.guruPic != null">
+				guru_pic like #{guru.guruPic} and
+			</if>
+			<if test="guru.guruSummary != null">
+				guru_summary like #{guru.guruSummary} and
+			</if>
+			<if test="guru.guruPicName != null">
+				guru_pic_name like #{guru.guruPicName} and
+			</if>
+		</trim>
+	</select>
+
+	<select id="selectGurusByTrim" resultMap="GuruResult">
+		select * from t_guru where
+		<trim suffixOverrides="and">
+			<if test="guru.guruId != null">
+				guru_id like #{guru.guruId} and
+			</if>
+			<if test="guru.guruName != null">
+				guru_name like #{guru.guruName} and
+			</if>
+			<if test="guru.guruPic != null">
+				guru_pic like #{guru.guruPic} and
+			</if>
+			<if test="guru.guruSummary != null">
+				guru_summary like #{guru.guruSummary} and
+			</if>
+			<if test="guru.guruPicName != null">
+				guru_pic_name like #{guru.guruPicName} and
+			</if>
+		</trim>
+		LIMIT #{begin},#{end}
+	</select>
+</mapper>

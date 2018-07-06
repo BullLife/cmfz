@@ -19,7 +19,8 @@
             $("#tt").tabs("add",{
                 title : menuName,
                 select : false,
-                href : "${pageContext.request.contextPath}/picture.jsp",
+
+				href : "${pageContext.request.contextPath}/"+menuUrl,
                 closable : true,
             });
             $("#tt").tabs("select",menuName);
