@@ -10,6 +10,10 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:include-filter>
     </context:component-scan>
 
+    <!-- 扫描poi提供的类 -->
+    <context:component-scan base-package="org.jeecgframework.poi.excel.view"></context:component-scan>
+    <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"></bean>
+
     <!--开启mvc的注解功能  fastjson json处理框架-->
     <mvc:annotation-driven>
         <mvc:message-converters>

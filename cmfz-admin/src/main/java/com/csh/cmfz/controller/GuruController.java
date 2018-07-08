@@ -1,7 +1,13 @@
 package com.csh.cmfz.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.csh.cmfz.entity.Guru;
 import com.csh.cmfz.service.GuruService;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.jeecgframework.poi.excel.ExcelExportUtil;
+import org.jeecgframework.poi.excel.ExcelImportUtil;
+import org.jeecgframework.poi.excel.entity.ExportParams;
+import org.jeecgframework.poi.excel.entity.ImportParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -106,5 +114,84 @@ public class GuruController {
         map.put("total",size);
         map.put("rows",gurus);
         return map;
+    }
+
+    /**
+     * Excel表格的数据导入
+     * @param file
+     * @param request
+     * @throws Exception
+     */
+    @RequestMapping(value="/importExcel",method = RequestMethod.POST)
+    public @ResponseBody String importExcel(MultipartFile file,HttpServletRequest request) throws Exception{
+        String message = "";
+        if(file.isEmpty()){
+            message = "field";
+            return message;
+        }
+        ImportParams params = new ImportParams();
+        //表格标题（默认为0） 但是如果设置标题，九设为一
+        params.setTitleRows(0);
+        //设置表头
+        params.setHeadRows(1);
+        //是否保存上传的Excel
+        params.setNeedSave(true);
+        String path1 = request.getSession().getServletContext().getRealPath("");
+        int i = path1.lastIndexOf("\\");
+        String path3 = path1.substring(0,i);
+        String path = path3+"\\upload\\guruPic";
+
+        File f = new File(path+"/excel"+file.getOriginalFilename());
+        file.transferTo(f);
+        List<Guru> gurus  = ExcelImportUtil.importExcel(f, Guru.class, params);
+        for (Guru guru : gurus) {
+            gs.addGuru(guru);
+        }
+        message = "successful";
+        return message;
+    }
+
+    /**
+     * 将所有的上师信息导出成Excel文件
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping("/export")
+    public void exportExcel(HttpServletResponse response) throws IOException {
+        List<Guru> gurus = gs.queryGurusOnPage(0, 10000);
+        //设置导出表头信息
+        ExportParams exportParams = new ExportParams();
+        exportParams.setSheetName("上师信息表");
+        exportParams.setTitle("c118");
+        //导出Excel文件
+        Workbook workbook = ExcelExportUtil.exportExcel(exportParams,Guru.class,gurus );
+
+        ServletOutputStream outputStream = response.getOutputStream();
+        //文件下载 设置响应头 编码格式：iso-8859-1
+        String fileName = new String("上师信息表.xls".getBytes(),"iso-8859-1");
+
+        //设置下响应类型
+        response.setContentType("applocation/vnd.ms-excel");
+        response.setHeader("content-disposition","attachment;fileName="+fileName);
+
+        //导出文件下载的方式
+        workbook.write(outputStream);
+        outputStream.close();
+    }
+
+    /**
+     * 为文章管理提供上师数据
+     * @return
+     */
+    @RequestMapping("/getAllGurus")
+    @ResponseBody
+    public List<Guru> getAllGurus(){
+        List<Guru> gurus = gs.queryGurusOnPage(0, 1000);
+        Guru guru = new Guru();
+        guru.setGuruId("0");
+        guru.setGuruName("暂无");
+        guru.setGuruSummary("\"selected\":true");
+        gurus.add(guru);
+        return gurus;
     }
 }

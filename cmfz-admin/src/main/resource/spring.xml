@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- spring Ioc的另一种方式 来从另外一个或多个文件加载bean定义 -->
+    <import resource="applicationContext.xml"></import>
+
+    <!-- bean factory将通过调用bean defintion reader从多个文件中读取bean定义 -->
+    <!-- 某些 BeanFactory的实现也允许将那些非BeanFactory创建的、已有的用户 对象注册到容器中，
+        比如使用DefaultListableBeanFactory 的registerSingleton(..) 方法。不过大多数应用还是采用 元数据定义为主
+     -->
+
+    <!--  bean的定义：
+        class : 权限顶类名，实例化bean
+        name : bean的名字，
+        scope : bean的作用域
+        autowiring mode : 自动装配                  autowire-candidate/autowire
+        dependency checking mode : 依赖检查         depends-on
+        lazy-initialization mode : 延迟初始化bean    lazy-init
+        initialization method : 初始化回调          init-method
+        destruction method : 析构回调
+    -->
+    <bean name="service" class="com.csh.cmfz.service.impl.GuruServiceImpl"  depends-on="guruServiceImpl" init-method="queryCount"
+          scope="request" autowire="byName" lazy-init="true" destroy-method="queryCount" autowire-candidate="true">
+        <!-- bean的注入依赖   -->
+        <!--
+            <property name=""></property>
+            <constructor-arg></constructor-arg>
+        -->
+    </bean>
+
+    <!--
+        给上面的bean起别名
+        好处：每个组件及主程序可以通过唯一名字来引用同一个数据源而互不干扰。
+        疑问：难道不用别名，用同一个bean就会有干扰吗？反正都是引用同一个数据源？？？？
+    -->
+    <alias name="guruServiceImpl" alias="guruService"></alias>
+
+    <!--
+        如果需要你希望将一个静态的内部类配置为 一个bean的话，那么内部类的名字需要采用二进制的写法。
+        比如说，在com.example包下有一个叫 Foo的类，而Foo类有一个静态 的内部类叫Bar，
+        那么在bean定义的时候， class属性必须这样写： com.example.Foo$Bar
+        注意这里我们使用了$字符将内部类和外部类进行分隔
+    -->
+
+
+
+
+
+
+</beans>

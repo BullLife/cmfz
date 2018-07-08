@@ -13,6 +13,7 @@ public class Article implements Serializable {
   private String articlePic; //文章照片的路径
   private Date publishDate;
   private String guruId;
+  private String articleStatus;
 
   public Article() {
   }
@@ -26,7 +27,16 @@ public class Article implements Serializable {
             ", articlePic='" + articlePic + '\'' +
             ", publishDate=" + publishDate +
             ", guruId='" + guruId + '\'' +
+            ", articleStatus='" + articleStatus + '\'' +
             '}';
+  }
+
+  public String getArticleStatus() {
+    return articleStatus;
+  }
+
+  public void setArticleStatus(String articleStatus) {
+    this.articleStatus = articleStatus;
   }
 
   public String getArticleId() {
