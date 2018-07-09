@@ -25,6 +25,10 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    /**
+     * 左边菜单栏
+     * @return
+     */
     @RequestMapping(value = "/getmenus",method = RequestMethod.GET)
     public @ResponseBody List<Menu> getAllMenus(){
         return menuService.queryAllMenus();

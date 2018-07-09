@@ -6,6 +6,7 @@
             url : "${pageContext.request.contextPath}/guru/getAllGurus.do",
             valueField : "guruId",
             textField : "guruName",
+            value : "暂无",
             onSelect : function(rec) {
                 console.log(rec.guruId);
             }
@@ -14,7 +15,6 @@
             iconCls: 'icon-table_save',
             onClick : function () {
                 var temp =editor.txt.html();
-               /* console.log("12312"+editor.txt.html());*/
                 $("#article_in").val(temp);
                 $("#article_ff").form("submit",{
                     url : "${pageContext.request.contextPath}/article/addarticle.do",
@@ -29,8 +29,9 @@
                         }else{
                             alert("创建文章失败");
                         }
-                    },
+                    }
                 });
+                //console.log(CKEDITOR.instances.editor.getData());
             }
         });
         $("#article_rest").linkbutton({
@@ -71,6 +72,5 @@
     </script>
     <br><br>
     <a id="article_submit">创建文章</a>
-    <br><br>
     <a id="article_rest">重置内容</a>
 </form>

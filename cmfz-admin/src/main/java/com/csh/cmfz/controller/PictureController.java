@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * @Description TODO
+ * @Description 轮播图管理
  * @Author 程少华
  * @Date 2018/7/5 18:02
  **/
@@ -26,16 +26,29 @@ public class PictureController {
     @Autowired
     private PictureService ps;
 
+    /**
+     * 获取数据库中所有的轮播图信息
+     * @param page
+     * @param rows
+     * @return
+     */
     @RequestMapping("/getpictures")
     public @ResponseBody Map<String,Object> getPictures(Integer page, Integer rows){
         List<Picture> pictures = ps.queryAllPicturesByPage((page - 1) * rows , rows);
         Integer count = ps.queryCount();
+
+        //dialog的json格式  封装成Map集合
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("total",count);
         map.put("rows",pictures);
         return map;
     }
 
+    /**
+     * 删除轮播图
+     * @param pictureId 轮播图的id
+     * @return
+     */
     @RequestMapping(value = "/removepicture",method = RequestMethod.POST)
     public @ResponseBody String removePicture(String pictureId){
         String message = "";
@@ -48,6 +61,13 @@ public class PictureController {
         return message;
     }
 
+    /**
+     * 修改轮播图的信息
+     * @param myFile 要修改的轮播图照片
+     * @param picture
+     * @param session
+     * @throws IOException
+     */
     @RequestMapping("/update")
     public @ResponseBody String update(MultipartFile myFile,Picture picture,HttpSession session) throws IOException {
         String message = "";
@@ -64,6 +84,14 @@ public class PictureController {
         return message;
     }
 
+    /**
+     * 上传轮播图照片
+     * @param myFile
+     * @param session
+     * @param picture
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/upload")
     public @ResponseBody String upload(MultipartFile myFile, HttpSession session,Picture picture) throws IOException {
         String message = "";
@@ -72,7 +100,6 @@ public class PictureController {
         int i = path1.lastIndexOf("\\");
         String path3 = path1.substring(0,i);
         String path = path3+"\\upload";
-        //String path = "D:\\apache-tomcat-7.0.81-windows-x86\\apache-tomcat-7.0.81\\webapps\\upload";
 
         String fileName = myFile.getOriginalFilename();
         String suffix = fileName.substring( fileName.lastIndexOf(".") );
@@ -82,9 +109,7 @@ public class PictureController {
         picture.setPicturePath(path);
         picture.setPictureName(newName+suffix);
         picture.setPictureDate(new Date());
-        System.out.println("要插入的数据为："+picture);
         Integer integer = ps.addPicture(picture);
-        System.out.println("受影响的行数为：  "+integer);
         if(integer>0){
             myFile.transferTo(new File(path+"/"+newName+suffix));
             message = "successful";

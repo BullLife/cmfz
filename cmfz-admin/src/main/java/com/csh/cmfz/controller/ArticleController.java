@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * @Description TODO
+ * @Description 文章管理
  * @Author 程少华
  * @Date 2018/7/8 17:44
  **/
@@ -31,6 +31,13 @@ public class ArticleController {
     private ArticleService articleService;
     private List<String> fileNames = new ArrayList<String >();
 
+    /**
+     * 富文本框上传照片
+     * @param files 多张照片
+     * @param request
+     * @return 回显上传的照片
+     * @throws IOException
+     */
     @RequestMapping("/upload")
     @ResponseBody
     public RichTextResult uploadFiles(@RequestParam("files") MultipartFile[] files, HttpServletRequest request) throws IOException { // MultipartFile[] 代表多文件上传
@@ -59,6 +66,11 @@ public class ArticleController {
         return result;
     }
 
+    /**
+     * 文章创建
+     * @param article
+     * @return
+     */
     @RequestMapping("/addarticle")
     public @ResponseBody String addArticle(Article article){
         String message = "";

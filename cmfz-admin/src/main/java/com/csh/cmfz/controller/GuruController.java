@@ -36,6 +36,12 @@ public class GuruController {
     @Autowired
     private GuruService gs;
 
+    /**
+     * 获取数据库中所有的上师信息
+     * @param page
+     * @param rows
+     * @return
+     */
     @RequestMapping("/getallgurus")
     public @ResponseBody Map<String,Object> getAllGurus(Integer page, Integer rows){
         List<Guru> gurus = gs.queryGurusOnPage((page - 1) * rows, rows);
@@ -46,12 +52,25 @@ public class GuruController {
         return map;
     }
 
+    /**
+     * 选中更新的上师信息 在后台时时获取数据
+     * @param guruId
+     * @return
+     */
     @RequestMapping(value = "/queryguru",method = RequestMethod.POST)
     public @ResponseBody Guru queryGuru(String guruId){
         Guru guru = gs.queryGuruById(guruId);
         return guru;
     }
 
+    /**
+     * 添加上师信息
+     * @param myFile 头像
+     * @param session
+     * @param guru 上师
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/addguru")
     public @ResponseBody String addGuru(MultipartFile myFile, HttpSession session,Guru guru) throws IOException {
         String message = "";
@@ -83,6 +102,13 @@ public class GuruController {
         return message;
     }
 
+    /**
+     * 更新上师信息
+     * @param guru
+     * @param myFile
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/updateguru")
     public @ResponseBody String updateGuru(Guru guru,MultipartFile myFile)throws IOException{
         String message = "";
@@ -98,16 +124,27 @@ public class GuruController {
         return message;
     }
 
+    /**
+     * 模糊查找上师信息（分页）
+     * @param page dialog传过来的页数
+     * @param rows dialog传过来的一页要显示的行数
+     * @param trim 模糊查询的条件
+     * @param request
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     @RequestMapping("/querytrim")
     public @ResponseBody Map<String,Object> queryGurusByTrim(Integer page, Integer rows, String trim, HttpServletRequest request) throws UnsupportedEncodingException {
         Guru guru = new Guru();
+
+        //前台get传参，汉字重新编码，后台获取参数解码
         String value = new String(request.getParameter("value").getBytes("ISO-8859-1"),"utf-8");
         if(trim.equals("guruName")){
             guru.setGuruName("%"+value+"%");
         }else if(trim.equals("guruSummary")){
             guru.setGuruSummary("%"+value+"%");
         }
-        System.out.println(guru);
+
         List<Guru> gurus = gs.queryGurusByTrim((page - 1) * rows, rows,guru);
         int size = gs.queryCountByTrim(guru);
         Map<String,Object> map = new HashMap<String,Object>();
@@ -187,11 +224,11 @@ public class GuruController {
     @ResponseBody
     public List<Guru> getAllGurus(){
         List<Guru> gurus = gs.queryGurusOnPage(0, 1000);
-        Guru guru = new Guru();
+       /* Guru guru = new Guru();
         guru.setGuruId("0");
         guru.setGuruName("暂无");
         guru.setGuruSummary("\"selected\":true");
-        gurus.add(guru);
+        gurus.add(guru);*/
         return gurus;
     }
 }

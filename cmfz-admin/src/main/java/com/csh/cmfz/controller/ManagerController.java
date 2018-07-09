@@ -28,10 +28,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Controller
 @RequestMapping("/mgr")
 public class ManagerController {
-
     @Autowired
     private ManagerService ms;
 
+    /**
+     * 去往管理员的登录页面（为了cookie）
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "toLogin")
     public String toLogin(HttpServletRequest request, Model model){
         //new AtomicInteger();
@@ -52,6 +57,16 @@ public class ManagerController {
         return "login";
     }
 
+    /**
+     * 管理员的登录
+     * @param manager 管理员
+     * @param code 验证码
+     * @param session
+     * @param model
+     * @param remember 是否要保存账户信息
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/login",method= RequestMethod.POST)
     public String login(Manager manager, String code, HttpSession session, Model model,String remember,HttpServletResponse response){
         String vcode = (String) session.getAttribute("vcode");
@@ -80,6 +95,14 @@ public class ManagerController {
         return "main";
     }
 
+    /**
+     * 生成验证码
+     * @param response
+     * @param model
+     * @param session
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value="/createVcode")
     public String createVcode(HttpServletResponse response, Model model,HttpSession session) throws IOException {
         CreateValidateCode cvc = new CreateValidateCode(150, 70, 4);
@@ -91,6 +114,11 @@ public class ManagerController {
         return null;
     }
 
+    /**
+     * 管理员用户登出
+     * @param session
+     * @return
+     */
     @RequestMapping("/logout")
     public String logout(HttpSession session){
         session.removeAttribute("manager");
