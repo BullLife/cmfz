@@ -3,16 +3,58 @@
 <mapper namespace="com.csh.cmfz.dao.ArticleDao">
 
 	<resultMap id="ArticleResult" type="Article">
-		<id property="guruId" column="guru_id"/>
+		<id property="articleId" column="article_id"/>
+		<result property="articleName" column="article_name"/>
+		<result property="introduction" column="introduction"/>
+		<result property="articlePic" column="article_pic"/>
+		<result property="publishDate" column="publish_date"/>
+		<result property="guruId" column="guru_id"/>
 		<result property="guruName" column="guru_name"/>
-		<result property="guruPic" column="guru_pic"/>
-		<result property="guruSummary" column="guru_summary"/>
-		<result property="guruPicName" column="guru_pic_name"/>
+		<result property="articleStatus" column="article_status"/>
 	</resultMap>
 
 	<insert id="insertArticle">
 		insert into t_article values(#{article.articleId},#{article.articleName},#{article.introduction},
-		#{article.articlePic},#{article.publishDate},#{article.guruId},#{article.articleStatus})
+		#{article.articlePic},#{article.publishDate},#{article.guruId},#{article.articleStatus},#{article.guruName})
 	</insert>
 
+	<select id="selectCount" resultType="java.lang.Integer">
+		select count(*) from t_article
+	</select>
+
+	<select id="selectAllArticleOnPage" resultMap="ArticleResult">
+		select * from t_article limit #{begin},#{end}
+	</select>
+
+	<select id="selectArticleById" resultMap="ArticleResult">
+		select * from t_article where article_id = #{id}
+	</select>
+
+	<update id="updateAtricle">
+		update t_article set
+		<trim suffixOverrides=",">
+			<if test="article.articleName != null">
+				article_name = #{article.articleName},
+			</if>
+			<if test="article.introduction != null">
+				introduction = #{article.introduction},
+			</if>
+			<if test="article.articlePic != null">
+				article_pic = #{article.articlePic},
+			</if>
+			<if test="article.publishDate != null">
+				article_date = #{article.publishDate},
+			</if>
+			<if test="article.guruId != null">
+				guru_id = #{article.guruId},
+			</if>
+			<if test="article.guruName != null">
+				guru_name = #{article.guruName},
+			</if>
+			<if test="article.articleStatus != null">
+				article_status = #{article.articleStatus},
+			</if>
+		</trim>
+		where article_id = #{articleId}
+	</update>
 </mapper>

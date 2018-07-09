@@ -1,8 +1,10 @@
 package com.csh.cmfz.controller;
 
 import com.csh.cmfz.entity.Article;
+import com.csh.cmfz.entity.Guru;
 import com.csh.cmfz.entity.RichTextResult;
 import com.csh.cmfz.service.ArticleService;
+import com.csh.cmfz.service.GuruService;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @Description 文章管理
@@ -29,6 +28,8 @@ import java.util.UUID;
 public class ArticleController {
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private GuruService guruService;
     private List<String> fileNames = new ArrayList<String >();
 
     /**
@@ -87,10 +88,46 @@ public class ArticleController {
             articlePic = articlePic + datum + ",";
         }
         article.setArticlePic(articlePic);
+       /* System.out.println(article.getGuruId());
+        Guru guru = guruService.queryGuruById(article.getGuruId());
+        article.setGuruName(guru.getGuruName());*/
         Integer integer = articleService.addArticle(article);
         if(integer>0){
             message = "successful";
         }
+        return message;
+    }
+
+    /**
+     * 获取所有文章信息
+     * @param page
+     * @param rows
+     * @return
+     */
+    @RequestMapping("/getallarticles")
+    public @ResponseBody Map<String,Object> getAllArticles(Integer page, Integer rows){
+        List<Article> articles = articleService.queryAllArticlesOnPage((page - 1) * rows, rows);
+        Integer count = articleService.queryCount();
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("total",count);
+        map.put("rows",articles);
+        return map;
+    }
+
+    /**
+     * 时时更新选择的文章信息
+     * @param id
+     * @return
+     */
+    @RequestMapping("/getarticle")
+    public @ResponseBody Article getArticleById(String id){
+        Article article = articleService.queryArticleById(id);
+        return article;
+    }
+
+    @RequestMapping("/updatearticle")
+    public @ResponseBody String updateArticle(Article article){
+        String message = "";
         return message;
     }
 }

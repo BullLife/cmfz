@@ -11,6 +11,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/datagrid-detailview.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/columns-ext.js"></script>
 <script type="text/javascript">
 	function addTab(menuName,menuUrl){
 	    console.log(menuUrl);
@@ -19,7 +20,6 @@
             $("#tt").tabs("add",{
                 title : menuName,
                 select : false,
-
 				href : "${pageContext.request.contextPath}/"+menuUrl,
                 closable : true,
             });
@@ -41,7 +41,7 @@
 							var length = result[key].menus.length;
 							for(var i = 0; i<length ; i++){
                                 $(this).append("<a class='easyui-linkbutton' data-options=\"iconCls:'"+temp[i].menuIcon+"'\" " +
-									"style='align-content: center;padding:10px;'  onclick=\"addTab('"+temp[i].menuName+"','"+temp[i].menuUrl+"')\">"+temp[i].menuName+"</a></br>");
+									"style='text-align: center;align-content: center;padding:10px;width: 210px'  onclick=\"addTab('"+temp[i].menuName+"','"+temp[i].menuUrl+"')\">"+temp[i].menuName+"</a></br>");
                             }
                         },
                         selected: false,
@@ -92,7 +92,7 @@
     </div>   
        
     <div  data-options="region:'west',title:'导航菜单',split:true" style="width:220px;">
-    	<div id="aa" class="easyui-accordion" data-options="fit:true">
+    	<div id="aa" class="easyui-accordion"  data-options="fit:true">
 
 		</div>
     </div>

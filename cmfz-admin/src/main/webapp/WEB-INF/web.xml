@@ -10,7 +10,7 @@
 
         <context-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:applicationContext.xml</param-value>
+            <param-value>classpath*:applicationContext.xml</param-value>
         </context-param>
 
         <filter>
@@ -35,7 +35,7 @@
             <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
             <init-param>
                 <param-name>contextConfigLocation</param-name>
-                <param-value>classpath:applicationContext-mvc.xml</param-value>
+                <param-value>classpath*:applicationContext-mvc.xml</param-value>
             </init-param>
         </servlet>
         <servlet-mapping>
@@ -44,7 +44,7 @@
         </servlet-mapping>
 
         <welcome-file-list>
-            <welcome-file>/main.jsp</welcome-file>
+            <welcome-file>/mgr/toLogin.do</welcome-file>
         </welcome-file-list>
 
 </web-app>

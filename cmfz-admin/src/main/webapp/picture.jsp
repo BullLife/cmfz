@@ -13,8 +13,6 @@
                 pageList : [ 5,10,15,20 ],
                 pageSize : pagesize,
                 toolbar : "#tb",
-                fitColumns : true,
-                singleSelect : true,
                 url:"${pageContext.request.contextPath}/pic/getpictures.do",
                 columns:[[
                     {field:'pictureId',title:'标识编号',align:'center'},

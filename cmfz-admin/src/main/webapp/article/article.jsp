@@ -1,42 +1,60 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8" isELIgnored="false" %>
 <script type="text/javascript">
     $(function() {
-        $('#guru_t1').datagrid({
+        $('#articl_ttt').datagrid({
             width:1100,
             height:500,
             remoteSort:false,
-            singleSelect:true,
             nowrap:false,
-            fitColumns:true,
             pagination : true,
             pageList : [ 5,10,15,20 ],
             pageSize : 5,
-            toolbar : "#guru_tb",
+            toolbar : "#article_tb",
             fitColumns : true,
             singleSelect : true,
-            url:"${pageContext.request.contextPath}/guru/getallgurus.do",
+            rownumbers : true,
+            url:"${pageContext.request.contextPath}/article/getallarticles.do",
             columns:[[
-                {field:'guruId',title:'标识编号',align:'center'},
-                {field:'guruName',title:'上师法名',sortable:true},
-                {field:'guruSummary',title:'上师简介',sortable:true},
-                {field:'guruPicName',title:'头像文件名',sortable:true},
+                {field:'articleId',title:'文章编号',align:'center'},
+                {field:'articleName',title:'文章标题',sortable:true},
+                {field:'articleStatus',title:'状态',sortable:true},
+                {field:'publishDate',title:'创建时间',sortable:true},
+                {field:'guruName',title:'所属上师',sortable:true},
+                {field:'operate',title:'操作',width:50,
+                    formatter : function(value,row,index){
+                    console.log("row:"+row);
+                    console.log("row:"+row.articleId);
+                    console.log("index:"+index);
+                    var str1 = "<a name='update' class='easyui-linkbutton' value='"+row.articleId+"'></a>";
+                    /*var str2 = "<a name='search' class='easyui-linkbutton'></a>";*/
+                    return str1;
+                }},
             ]],
-            view: detailview,
-            detailFormatter: function(rowIndex, rowData){
-                return '<table><tr>' +
-                    '<td rowspan=2 style="border:0"><img src="${pageContext.request.contextPath}/upload/guruPic/'+rowData.guruPicName +'" style="height:150px;"></td>' +
-                    '</tr></table>';
-            },
+            onLoadSuccess : function (data) {
+                $("a[name='update']").linkbutton({
+                    text : "修改内容",
+                    plain : true,
+                    iconCls : 'icon-edit',
+                    onClick : function () {
+                       console.log($(this).val());
+                    }
+                });
+                /*$("a[name='search']").linkbutton({
+                    text : "文章详情",
+                    plain : true,
+                    iconCls : 'icon-ok',
+                });*/
+            }
         });
     });
 </script>
 
-<table id="articl_t1"></table>
+<table id="articl_ttt"></table>
 <div id="article_tb">
     <a id="article_update"></a>
     <a id="article_add" ></a>
     <a id="article_addmore"></a>
-    <input id="article_ss"></input>
+    <input id="article_ss" type="hidden"></input>
     <div id="atricle_mm" style="width:120px;display: none">
         <div data-options="name:'guruName',iconCls:'icon-ok'">法名</div>
         <div data-options="name:'guruSummary'">简介</div>

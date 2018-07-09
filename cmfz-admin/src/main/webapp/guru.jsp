@@ -12,8 +12,6 @@
             pageList : [ 5,10,15,20 ],
             pageSize : 5,
             toolbar : "#guru_tb",
-            fitColumns : true,
-            singleSelect : true,
             url:"${pageContext.request.contextPath}/guru/getallgurus.do",
             columns:[[
                 {field:'guruId',title:'标识编号',align:'center'},

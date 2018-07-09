@@ -1,5 +1,8 @@
 package com.csh.cmfz.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,9 +14,12 @@ public class Article implements Serializable {
   private String articleName;
   private String introduction;
   private String articlePic; //文章照片的路径
+  @JSONField(format = "yyyy-MM-dd : hh:mm:ss")
+  @DateTimeFormat(style = "yyyy-MM-dd : hh:mm:ss")
   private Date publishDate;
   private String guruId;
   private String articleStatus;
+  private String guruName;
 
   public Article() {
   }
@@ -28,7 +34,16 @@ public class Article implements Serializable {
             ", publishDate=" + publishDate +
             ", guruId='" + guruId + '\'' +
             ", articleStatus='" + articleStatus + '\'' +
+            ", guruName='" + guruName + '\'' +
             '}';
+  }
+
+  public String getGuruName() {
+    return guruName;
+  }
+
+  public void setGuruName(String guruName) {
+    this.guruName = guruName;
   }
 
   public String getArticleStatus() {
