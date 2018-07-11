@@ -27,6 +27,11 @@ public class GuruServiceImpl implements GuruService {
     }
 
     @Override
+    public void addSomeGuru(List<Guru> gurus) {
+        guruDao.insertSomeGuru(gurus);
+    }
+
+    @Override
     public Integer modifyGuru(Guru guru) {
         return guruDao.updateGuru(guru);
     }

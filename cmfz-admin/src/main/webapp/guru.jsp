@@ -27,7 +27,7 @@
             },
         });
         $("#guru_add").linkbutton({
-            iconCls : "icon-guru_add",
+            iconCls : "icon-add",
             text : "新增上师信息",
             onClick : function(){
                 $("#guru_dialog").dialog({
@@ -197,7 +197,7 @@
             },
         });
         $("#guru_addmore").linkbutton({
-            iconCls : "icon-guru_add",
+            iconCls : "icon-add",
             text : "导入上师信息Excel表格",
             onClick : function(){
                 $("#guru_dialog").dialog({
@@ -213,13 +213,13 @@
                         text : "提交",
                         handler : function(){
                             $("#excel").form("submit",{
-                                url : "${pageContext.request.contextPath }/guru/importExcel.do",
+                                url : "${pageContext.request.contextPath}/guru/importExcel.do",
                                 onSubmit : function(){
                                     return $("#excel").form("validate");
                                 },
-                                succss : function(result){
+                                success : function(result){
                                     console.log(result);
-                                    if(result == "succeguru_ssful"){
+                                    if(result == "successful"){
                                         $.messager.show({
                                             title:"该窗口即将关闭",
                                             msg:"上师信息表格上传成功",
@@ -257,7 +257,7 @@
             }
         });
         $("#exportExcel").linkbutton({
-            iconCls : "icon-guru_add",
+            iconCls : "icon-add",
             text : "导出Excel表格",
             onClick : function(){
                 window.location.href = "${pageContext.request.contextPath }/guru/export.do";

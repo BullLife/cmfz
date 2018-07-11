@@ -29,6 +29,7 @@
                         //刷新页面
                         if(result == "successful"){
                             alert("创建文章成功");
+                            editor.txt.html("");
                         }else{
                             alert("创建文章失败");
                         }

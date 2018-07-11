@@ -16,6 +16,13 @@
 		)
 	</insert>
 
+	<insert id="insertSomeGuru">
+		insert into t_guru values
+		<foreach collection="gurus" item="guru" separator=",">
+			(#{guru.guruId},#{guru.guruName},#{guru.guruPic},#{guru.guruSummary},#{guru.guruPicName})
+		</foreach>
+	</insert>
+
 	<update id="updateGuru">
 		update t_guru set
 		<trim suffixOverrides=",">

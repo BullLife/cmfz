@@ -12,7 +12,9 @@
 			log_id as logId,
 			manager_name as managerName,
 			time,resource,action,message,result
-		from t_log limit #{begin},#{end}
+		from t_log
+		ORDER BY time
+		limit #{begin},#{end}
 	</select>
 
 	<select id="selectCount" resultType="java.lang.Integer">

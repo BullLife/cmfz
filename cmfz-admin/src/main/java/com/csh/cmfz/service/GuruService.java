@@ -11,6 +11,8 @@ public interface GuruService {
 
     public Integer addGuru(Guru guru);
 
+    public void addSomeGuru(List<Guru> gurus);
+
     public Integer modifyGuru(Guru guru);
 
     public Integer queryCount();

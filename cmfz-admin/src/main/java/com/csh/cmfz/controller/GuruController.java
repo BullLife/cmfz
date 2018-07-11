@@ -181,9 +181,10 @@ public class GuruController {
         File f = new File(path+"/excel"+file.getOriginalFilename());
         file.transferTo(f);
         List<Guru> gurus  = ExcelImportUtil.importExcel(f, Guru.class, params);
-        for (Guru guru : gurus) {
+        /*for (Guru guru : gurus) {
             gs.addGuru(guru);
-        }
+        }*/
+        gs.addSomeGuru(gurus);
         message = "successful";
         return message;
     }

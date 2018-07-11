@@ -16,6 +16,8 @@ public interface GuruDao {
      */
     public Integer insertGuru(@Param("guru")Guru guru);
 
+    public void insertSomeGuru(@Param("gurus") List<Guru> gurus);
+
     /**
      *  修改上师信息
      * @param guru 要修改的上师信息

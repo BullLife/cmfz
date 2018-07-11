@@ -25,25 +25,16 @@
                     console.log("row:"+row);
                     console.log("row:"+row.articleId);
                     console.log("index:"+index);
-                    var str1 = "<a name='update' class='easyui-linkbutton' value='"+row.articleId+"'></a>";
-                    /*var str2 = "<a name='search' class='easyui-linkbutton'></a>";*/
+                    var str1 = "<a name='update' class='easyui-linkbutton'></a>";
                     return str1;
                 }},
             ]],
             onLoadSuccess : function (data) {
                 $("a[name='update']").linkbutton({
-                    text : "修改内容",
+                    text : "查看文章详情",
                     plain : true,
                     iconCls : 'icon-edit',
-                    onClick : function () {
-                       console.log($(this).val());
-                    }
                 });
-                /*$("a[name='search']").linkbutton({
-                    text : "文章详情",
-                    plain : true,
-                    iconCls : 'icon-ok',
-                });*/
             }
         });
     });
