@@ -5,8 +5,7 @@ package ManagerTest;/**
 import com.csh.cmfz.dao.ManagerDao;
 import com.csh.cmfz.entity.Manager;
 import com.csh.cmfz.service.ManagerService;
-import com.csh.cmfz.util.Codec;
-import org.aspectj.apache.bcel.classfile.Code;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -31,12 +30,14 @@ public class mgrTest {
         System.out.println(manager);
         Integer integer = managerDao.insertManager(manager);
         System.out.println(integer);*/
-       ManagerService ms = (ManagerService) classPathXmlApplicationContext.getBean("managerServiceImpl");
-       System.out.println("服务对象："+ms);
-       Manager manager = ms.queryManagerById("99666cde0e394cfa82c7ec1631e36ccb", "123456");
+        ManagerService ms = (ManagerService) classPathXmlApplicationContext.getBean("managerServiceImpl");
+        Manager manager = ms.queryManagerByName("ls");
+        Md5Hash abcd = new Md5Hash("123", "xyz", 512);
+
         System.out.println(manager);
-       /* Manager manager1 = managerDao.selectManagerById("99666cde0e394cfa82c7ec1631e36ccb");
-        System.out.println(manager1);*/
+        System.out.println(abcd);
+        boolean equals = abcd.toString().equals(manager.getMgrPwd());
+        System.out.println(equals);
 
     }
 

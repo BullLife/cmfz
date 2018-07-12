@@ -28,16 +28,7 @@ public class ManagerServiceImpl implements ManagerService{
     }
 
     @Transactional(propagation= Propagation.SUPPORTS,readOnly=true)
-    public Manager queryManagerById(String id,String password) {
-        Manager manager = md.selectManagerById(id);
-        if(manager != null){
-            if(manager.getMgrStatus() == 1){
-                String pwd = Codec.encryption(password+manager.getMgrSalt());
-                if(manager.getMgrPwd().equals(pwd)){
-                    return manager;
-                }
-            }
-        }
-        return null;
+    public Manager queryManagerByName(String mgrName) {
+        return md.selectManagerByName(mgrName);
     }
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"></property>
+        <!--登录页的URL-->
+        <property name="loginUrl" value="/login.jsp"></property>
+        <property name="unauthorizedUrl" value="/error.jsp"></property>
+        <!--
+            定义过滤器链的拦截规则
+            过滤器：filter  请求和响应做预处理的
+            Filter 接口 3个 doFilter(req,resp,chain)
+                           chain.doFilter(req,resp);
+        -->
+        <property name="filterChainDefinitions">
+           <value>
+               /js/**=anon
+               /image/**=anon
+               /script/**=anon
+               /mgr/**=anon
+               /css/**=anon
+               /img/**=anon
+               /**=authc
+           </value>
+        </property>
+    </bean>
+
+    <!--初始化web环境下的安全管理器-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!--引用自定义的数据源-->
+        <property name="realms">
+            <list>
+                <ref bean="myRealm"></ref>
+            </list>
+        </property>
+        <!-- 记住我管理器 实现记住我功能 -->
+        <property name="rememberMeManager" ref="rememberMeManager"></property>
+    </bean>
+    <!--声明记住我管理器-->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cookie" ref="simpleCookie"></property>
+    </bean>
+
+    <!--对记住我的cookie配置-->
+    <bean id="simpleCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <!--cookie名称-->
+        <property name="name" value="loginCookie"></property>
+        <property name="maxAge" value="604800"></property>
+        <property name="path" value="/"></property>
+    </bean>
+
+    <!--声明自定义的数据源-->
+    <bean id="myRealm" class="com.csh.cmfz.util.MyRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"></property>
+    </bean>
+
+    <!--声明复杂的凭证匹配器对象-->
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="md5"></property>
+        <property name="hashIterations" value="512"></property>
+    </bean>
+</beans>

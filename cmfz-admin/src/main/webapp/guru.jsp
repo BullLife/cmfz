@@ -1,6 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8" isELIgnored="false" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <script type="text/javascript">
     $(function() {
+
         $('#guru_t1').datagrid({
             width:1100,
             height:500,
@@ -270,12 +272,19 @@
 <div id="guru_tb">
     <a id="guru_update"></a>
     <a id="guru_add" ></a>
-    <a id="guru_addmore"></a>
-    <a id="exportExcel"></a>
+    <shiro:hasPermission name="guru:add">
+        <a id="guru_addmore"></a>
+    </shiro:hasPermission>
+    <shiro:hasRole name="root">
+        <a id="exportExcel"></a>
+    </shiro:hasRole>
     <input id="guru_ss"></input>
     <div id="guru_mm" style="width:120px;display: none">
         <div data-options="name:'guruName',iconCls:'icon-ok'">法名</div>
         <div data-options="name:'guruSummary'">简介</div>
     </div>
 </div>
-<div id="guru_dialog"></div>
+<shiro:hasAnyRoles name="root,admin">
+    <div id="guru_dialog"></div>
+</shiro:hasAnyRoles>
+

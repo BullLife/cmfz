@@ -62,7 +62,7 @@
 								用户名:
 							</th>
 							<td>
-								<input type="text"  name="mgrId" class="text" value="${mgrId}" maxlength="40"/>
+								<input type="text"  name="username" class="text" maxlength="40"/>
 							</td>
 					  </tr>
 					  <tr>
@@ -70,7 +70,7 @@
 								密&nbsp;&nbsp;&nbsp;码:
 							</th>
 							<td>
-								<input type="password" name="mgrPwd" class="text"  maxlength="20" autocomplete="off"/>
+								<input type="password" name="password" class="text"  maxlength="20" autocomplete="off"/>
 							</td>
 					  </tr>
 					
@@ -94,7 +94,7 @@
 						</th>
 						<td>
 							<label>
-								<input type="checkbox" id="isRememberUsername" name="remember" value="true"/> 记住用户名
+								<input type="checkbox" id="isRememberUsername" name="rememberMe" /> 记住用户名
 							</label>
 						</td>
 					</tr>

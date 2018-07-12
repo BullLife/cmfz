@@ -15,7 +15,7 @@ public interface ManagerService {
     /**
      * 根据id查找管理员用户
      * @Author 程少华
-     * @param id  查询的条件
+     * @param mgrName  查询的条件
      */
-    public Manager queryManagerById(String id,String password);
+    public Manager queryManagerByName(String mgrName);
 }

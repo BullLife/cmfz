@@ -14,8 +14,8 @@
 		insert into t_manager values(#{mgr.mgrId},#{mgr.mgrName},#{mgr.mgrPwd},#{mgr.mgrSalt},#{mgr.mgrStatus})
 	</insert>
 
-	<select id="selectManagerById" resultMap="ManagerResult">
-		select * from t_manager where mgr_id = #{id}
+	<select id="selectManagerByName" resultMap="ManagerResult">
+		select * from t_manager where mgr_name = #{mgrName}
 	</select>
 
 </mapper>

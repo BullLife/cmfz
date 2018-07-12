@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.csh.cmfz.dao.RoleDao">
+
+	<select id="selectRoleByManageName" resultType="Role">
+		select
+			id,role_name roleName,role_tag roleTag
+		from t_role where id in (
+			select role_id from t_user_role
+				where mgr_id = (select mgr_id from t_manager where mgr_name = #{mgrName})
+		)
+	</select>
+
+</mapper>
